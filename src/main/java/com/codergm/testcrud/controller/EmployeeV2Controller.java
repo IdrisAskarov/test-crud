@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/employee")
-public class EmployeeController {
+@RequestMapping("/api/v2/employee")
+public class EmployeeV2Controller {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeV2Controller(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @PostMapping
     public ResponseEntity<Employee> save(@RequestBody Employee employee){
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.save(employee));
+        return ResponseEntity.status(HttpStatus.CREATED).body(employee);
     }
 
     @GetMapping
