@@ -26,6 +26,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getAllEmployees() {
         return this.employees;
-//        return null;
+    }
+
+    @Override
+    public Employee getEmployeeById(String id) {
+        return this.employees.stream().filter(employee -> employee.getEmployeeId().equals(id)).findFirst()
+                .orElseThrow(() -> new RuntimeException("Employee with id " + id + " not found"));
     }
 }

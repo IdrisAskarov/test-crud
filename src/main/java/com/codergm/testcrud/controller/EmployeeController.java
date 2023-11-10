@@ -18,13 +18,19 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Employee> save(@RequestBody Employee employee){
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.save(employee));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Employee> getAllEmployees(){
         return employeeService.getAllEmployees();
     }
+
+    @GetMapping("{id}")
+    public Employee getEmployeeById(@PathVariable String id){
+        return employeeService.getEmployeeById(id);
+    }
+
 }
