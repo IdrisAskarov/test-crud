@@ -24,4 +24,16 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 .build();
 
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage genericExceptionHandler(Exception exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .time(LocalDateTime.now())
+                .build();
+
+    }
 }
