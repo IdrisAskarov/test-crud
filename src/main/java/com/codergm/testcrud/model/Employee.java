@@ -1,10 +1,12 @@
 package com.codergm.testcrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@JsonIgnoreProperties({"department","emailId"})
 public class Employee {
     private String employeeId;
     private String firstName;
