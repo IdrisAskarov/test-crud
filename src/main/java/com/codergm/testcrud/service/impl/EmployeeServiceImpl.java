@@ -1,5 +1,6 @@
 package com.codergm.testcrud.service.impl;
 
+import com.codergm.testcrud.exception.EmployeeNotFoundException;
 import com.codergm.testcrud.model.Employee;
 import com.codergm.testcrud.service.EmployeeService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee getEmployeeById(String id) {
         return this.employees.stream().filter(employee -> employee.getEmployeeId().equals(id)).findFirst()
-                .orElseThrow(() -> new RuntimeException("Employee with id " + id + " not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with id " + id + " not found"));
     }
 }
