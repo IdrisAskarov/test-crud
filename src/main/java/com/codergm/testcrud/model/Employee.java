@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties({"department","emailId"})
+@JsonIgnoreProperties()
 public class Employee {
     private String employeeId;
     private String firstName;

@@ -2,6 +2,7 @@ package com.codergm.testcrud.controller;
 
 import com.codergm.testcrud.model.Employee;
 import com.codergm.testcrud.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(@Qualifier("employeeServiceImpl") EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
