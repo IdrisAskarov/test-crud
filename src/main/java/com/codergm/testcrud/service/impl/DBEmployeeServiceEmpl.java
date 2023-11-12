@@ -1,6 +1,7 @@
 package com.codergm.testcrud.service.impl;
 
 import com.codergm.testcrud.entity.EmployeeEntity;
+import com.codergm.testcrud.exception.EmployeeNotFoundException;
 import com.codergm.testcrud.model.Employee;
 import com.codergm.testcrud.repository.EmployeeRepository;
 import com.codergm.testcrud.service.EmployeeService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service("dbEmployeeService")
 public class DBEmployeeServiceEmpl implements EmployeeService {
@@ -33,16 +35,29 @@ public class DBEmployeeServiceEmpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return null;
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
+        List<Employee> employees = employeeEntities.stream().map(empl -> {
+            Employee employee = new Employee();
+            BeanUtils.copyProperties(empl, employee);
+            return employee;
+        }).collect(Collectors.toList());
+        return employees;
     }
 
     @Override
     public Employee getEmployeeById(String id) {
-        return null;
+        EmployeeEntity employeeEntity = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with id " + id + " not found"));
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeEntity, employee);
+        return employee;
     }
 
     @Override
     public String deleteEmployeeById(String id) {
-        return null;
+        EmployeeEntity employeeEntity = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with id " + id + " not found"));
+        employeeRepository.delete(employeeEntity);
+        return "Employee deleted with the id: " + id;
     }
 }
